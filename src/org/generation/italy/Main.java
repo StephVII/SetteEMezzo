@@ -13,34 +13,36 @@ public class Main {
 		Random R = new Random();
 		
 		String risposta, cartaEstratta;
-		int numCarta, i, j, conta;
+		int numCarta, i, conta;
 		double n, punti;
 		
 		ArrayList<String> mazzo = new ArrayList<>();
 		ArrayList<Double> punteggio = new ArrayList<>();
 		
+		String[] valore = {"Asso", "2", "3", "4", "5", "6", "7", "Donna", "Cavallo", "Re"};
 		String[] semi = {"Denari", "Coppe", "Spade", "Bastoni"};
 		
 		conta = 0;
 		punti = 0;
 		
-		for(j=0; j<4; j++)
+		for(String seme : semi)
 		{
-			for(i=1; i<=10; i++)
+			for(i=0; i<10; i++)
 			{
-				mazzo.add(i+" di "+semi[j]);
+				mazzo.add(valore[i]+" di "+seme);
 				
-				if(i >= 1 && i < 8)
+				if(i >= 0 && i < 7)
 				{
-					n = i;
+					n = i+1;
 					punteggio.add(n);
 				}
-				else if(i >= 8 && i <= 10)
+				else if(i >= 7 && i <= 9)
 				{
 					punteggio.add(0.5);
 				}
 			}
 		}
+		
 		
 		do 
 		{
