@@ -13,34 +13,70 @@ public class Main {
 		Random R = new Random();
 		
 		String risposta, cartaEstratta;
-		int numCarta, i, j;
+		int numCarta, i, j, conta;
+		double n, punti;
 		
 		ArrayList<String> mazzo = new ArrayList<>();
+		ArrayList<Double> punteggio = new ArrayList<>();
+		
 		String[] semi = {"Denari", "Coppe", "Spade", "Bastoni"};
+		
+		conta = 0;
+		punti = 0;
 		
 		for(j=0; j<4; j++)
 		{
 			for(i=1; i<=10; i++)
 			{
 				mazzo.add(i+" di "+semi[j]);
+				
+				if(i >= 1 && i < 8)
+				{
+					n = i;
+					punteggio.add(n);
+				}
+				else if(i >= 8 && i <= 10)
+				{
+					punteggio.add(0.5);
+				}
 			}
 		}
 		
-		for(i=0; i<40; i++)
+		do 
 		{
-			System.out.println(mazzo.get(i));
-		}
+			
+			numCarta = R.nextInt(mazzo.size());
+			cartaEstratta = mazzo.get(numCarta);
+			punti = punti + punteggio.get(numCarta);
+			if(conta == 0)
+			{
+				System.out.println("La tua prima carta è "+cartaEstratta);
+				System.out.println("Attualmente hai "+punti+" punti.");
+				conta++;
+			}
+			else if(conta > 0)
+			{
+				System.out.println("La tua nuova carta è "+cartaEstratta);
+				System.out.println("Attualmente hai "+punti+" punti.");
+			}
+			mazzo.remove(numCarta);
+			punteggio.remove(numCarta);
+			
+			if(punti > 7.5)
+			{
+				System.out.println("Hai sballato. Vince il banco.");
+				break;
+			}
+			else
+			{
+				System.out.println("Vuoi estrarre un'altra carta? (si/no)");
+				risposta = sc.nextLine();
+			}
+			
+		} 
+		while(risposta.equals("si"));
 		
-		/*System.out.println("Vuoi estrarre una carta? (si/no)");
-		risposta = sc.nextLine();
-		if(risposta.equals("si"))
-		{
-			numCarta = R.nextInt(mazzo.length);
-			cartaEstratta = mazzo[numCarta];
-			System.out.println("La tua carta è "+cartaEstratta);
-		}*/
-		
-		
+		System.out.println("\n\nPartita finita, hai chiuso con "+punti+" punti.");
 	}
 
 }
