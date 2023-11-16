@@ -14,7 +14,8 @@ public class Main {
 		
 		String risposta, cartaEstratta;
 		int numCarta, i, conta;
-		double n, punti;
+		double n, punti, puntiBanco;
+		Boolean sballo;
 		
 		ArrayList<String> mazzo = new ArrayList<>();
 		ArrayList<Double> punteggio = new ArrayList<>();
@@ -24,6 +25,8 @@ public class Main {
 		
 		conta = 0;
 		punti = 0;
+		puntiBanco = 0;
+		sballo = false;
 		
 		for(String seme : semi)
 		{
@@ -66,7 +69,12 @@ public class Main {
 			
 			if(punti > 7.5)
 			{
-				System.out.println("Hai sballato. Vince il banco.");
+				System.out.println("Hai sballato.");
+				sballo = true;
+				break;
+			}
+			else if(punti == 7.5)
+			{
 				break;
 			}
 			else
@@ -78,7 +86,32 @@ public class Main {
 		} 
 		while(risposta.equals("si"));
 		
-		System.out.println("\n\nPartita finita, hai chiuso con "+punti+" punti.");
+		System.out.println("\n\n");
+		
+		while(puntiBanco < 5 && sballo == false)
+		{
+			numCarta = R.nextInt(mazzo.size());
+			cartaEstratta = mazzo.get(numCarta);
+			puntiBanco = puntiBanco + punteggio.get(numCarta);
+			System.out.println("\nLa carta del banco è "+cartaEstratta+".");
+			System.out.println("\nIl punteggio attuale del banco è "+puntiBanco+".");
+			mazzo.remove(numCarta);
+			punteggio.remove(numCarta);
+			
+			if(puntiBanco > 7.5)
+			{
+				System.out.println("Il banco ha sballato.");
+			}
+		} 
+		
+		if(puntiBanco > punti && puntiBanco <= 7.5)
+			System.out.println("Ha vinto il banco.");
+		else if(!(punti==puntiBanco)&&sballo == false)
+			System.out.println("Hai vinto tu.");
+		else
+			System.out.println("Ha vinto il banco.");
+		
+		System.out.println("\n\nPartita finita, hai chiuso con "+punti+" punti. \n Il banco ha chiuso con "+puntiBanco+".");
 	}
 
 }
